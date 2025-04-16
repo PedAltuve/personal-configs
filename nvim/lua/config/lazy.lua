@@ -50,3 +50,6 @@ vim.opt.foldlevel = 99
 
 -- Add to clipboard
 vim.opt.clipboard = "unnamedplus"
+
+-- Auto-session
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

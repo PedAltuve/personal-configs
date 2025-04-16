@@ -2,29 +2,28 @@ return {
 	-- Add Mason
 	{
 		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		"neovim/nvim-lspconfig",
 		build = ":MasonUpdate",
 		config = function()
 			require("mason").setup()
-			require("mason-lspconfig").setup({
-				ensure_installed = {"lua_ls", "tsserver", "pyright" },
-				automatic_installation = true,
-			})
 		end,
 	},
 	-- Connect Mason to LSPConfig
-	{
-		"nvimdev/lspsaga.nvim",
-		event = "LspAttach",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-			"nvim-treesitter/nvim-treesitter",
-		},
-		config = function()
-			require("lspsaga").setup {}
-		end
-	},
+  {
+    "williamboman/mason-lspconfig.nvim",
+    dependencies = { "williamboman/mason.nvim" },
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "lua_ls",
+          "tsserver",
+          "pyright",
+          "intelephense",
+          "djlint"
+        },
+        automatic_installation = true,
+      })
+    end,
+  },
 	-- LSP Config
 	{
 		"neovim/nvim-lspconfig",
@@ -50,5 +49,16 @@ return {
 				end
 			})
 		end
-	}
+	},
+  {
+    "nvimdev/lspsaga.nvim",
+    event = "LspAttach",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("lspsaga").setup({})
+    end,
+  },
 }
