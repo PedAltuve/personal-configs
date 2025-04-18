@@ -15,10 +15,10 @@ return {
       require("mason-lspconfig").setup({
         ensure_installed = {
           "lua_ls",
-          "tsserver",
+          "ts_ls",
           "pyright",
           "intelephense",
-          "djlint"
+          "htmx"
         },
         automatic_installation = true,
       })
@@ -30,6 +30,7 @@ return {
 		config = function()
 			local lspconfig = require("lspconfig")
 			local mason_lspconfig = require("mason-lspconfig")
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			local on_attach = function(_, bufnr)
 				local map = function(mode, lhs, rhs, desc)
@@ -39,12 +40,16 @@ return {
 				map("n", "K", "<cmd>Lspsaga hover_doc<CR>", "Hover")
 				map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", "Code action")
 				map("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", "Rename")
+        if vim.lsp.inlay_hint then
+          vim.lsp.inlay_hint.enable(true,{ bufnr = bufnr })
+        end
 			end
 
 			mason_lspconfig.setup_handlers({
 				function(server_name)
 					lspconfig[server_name].setup({
 						on_attach = on_attach,
+            capabilities = capabilities,
 					})
 				end
 			})
