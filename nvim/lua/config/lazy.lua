@@ -38,9 +38,10 @@ require("lazy").setup({
 vim.opt.relativenumber = true
 
 -- Config tabs spaces
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = false
+vim.opt.softtabstop = 0
 
 -- Fold using treesitter
 vim.opt.foldmethod = "expr"
