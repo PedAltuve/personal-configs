@@ -17,7 +17,9 @@ return {
           "lua_ls",
           "ts_ls",
           "pyright",
-          "intelephense"
+          "ruby_lsp",
+		  "html",
+		  "tailwindcss"
 		}
 	  })
     end,
@@ -25,6 +27,7 @@ return {
   -- LSP Config
   {
     "neovim/nvim-lspconfig",
+	dependencies = { "hrsh7th/cmp-nvim-lsp" },
     config = function()
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -37,8 +40,8 @@ return {
         map("n", "<leader>gd", "<cmd>Lspsaga goto_definition<CR>", "Goto definition")
 		map("n", "<leader>pd", "<cmd>Lspsaga peek_definition<CR>", "Peek definition")
 		map("n", "<leader>fd", "<cmd>Lspsaga finder<CR>", "LSPSaga finder")
-		map("n", "<leader>dn", "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next code diagnostic")
-		map("n", "<leader>dp", "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous code diagnostic")
+		map("n", "[e", "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next code diagnostic")
+		map("n", "]e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Previous code diagnostic")
         map("n", "K", "<cmd>Lspsaga hover_doc<CR>", "Hover")
         map("n", "<leader>c", "<cmd>Lspsaga code_action<CR>", "Code action")
         map("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", "Rename")
@@ -50,7 +53,7 @@ return {
 	  end
 
       -- Directly setup each server
-      local servers = { "lua_ls", "ts_ls", "pyright", "intelephense", "html" }
+      local servers = { "lua_ls", "ts_ls", "pyright", "html", "ruby_lsp" }
       for _, server in ipairs(servers) do
 		if server == "pyright" then
 			lspconfig[server].setup({
@@ -59,6 +62,24 @@ return {
 				settings = {
 					python = {
 						pythonPath = vim.fn.exepath("python")			
+					}
+				}
+			})
+		elseif server == "ruby_lsp" then
+			lspconfig[server].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				filetypes = { "ruby", "erb" },
+				settings = {
+					rubyLsp = {
+						enabledFeatures = {
+							"documentSymbols",
+							"foldingRanges",
+							"selectionRanges",
+							"semanticHighlighting",
+							"formatting",
+							"codeActions"
+						}
 					}
 				}
 			})
@@ -71,11 +92,12 @@ return {
       end
     end,
   },
-  -- Lspsaga for enhanced LSP UI
+-- Lspsaga for enhanced LSP UI
   {
     "nvimdev/lspsaga.nvim",
     event = "LspAttach",
     dependencies = {
+	  "neovim/nvim-lspconfig",
       "nvim-tree/nvim-web-devicons",
       "nvim-treesitter/nvim-treesitter",
     },
