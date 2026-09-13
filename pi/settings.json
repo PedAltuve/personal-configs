@@ -1,0 +1,21 @@
+{
+  "defaultModel": "gpt-5.6-sol",
+  "defaultProvider": "openai-codex",
+  "defaultThinkingLevel": "high",
+  "hideThinkingBlock": true,
+  "packages": [
+    "npm:gentle-engram",
+    "npm:pi-intercom",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:pi-web-access",
+    "npm:pi-btw",
+    "npm:@tmustier/pi-usage-extension",
+    "npm:pi-copy-message",
+    "../../../pi-geo-seo",
+    "npm:pi-mcp-adapter"
+  ],
+  "theme": "omarchy-system",
+  "tuiMode": "fullscreen",
+  "fullscreenScrollbar": "auto",
+  "fullscreenExitOutput": "transcript"
+}

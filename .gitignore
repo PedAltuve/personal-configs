@@ -1,0 +1,43 @@
+# Credentials and local trust state
+.env
+.env.*
+*.pem
+*.key
+claude/.credentials.json
+claude/credentials.json
+pi/auth.json
+pi/trust.json
+
+# Runtime state, caches, installed extensions, and backups
+claude/cache/
+claude/history*
+claude/projects/
+claude/sessions/
+claude/plugins/
+herdr/backups/
+herdr/logs/
+herdr/plugins/
+herdr/sessions/
+herdr/*.log
+herdr/*.sock
+pi/backups/
+pi/cache/
+pi/catalogs/
+pi/git/
+pi/npm/
+pi/sessions/
+pi/subagents/
+pi/chains/
+pi/agents/
+
+# Gentle AI generated artifacts
+claude/agents/
+claude/commands/
+claude/skills/
+claude/gentle-ai/
+claude/gentle-pi/
+pi/skills/
+pi/gentle-ai/
+pi/gentle-pi/
+gentle-ai/
+gentle-pi/
